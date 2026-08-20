@@ -113,5 +113,12 @@ Cách khắc phục (chọn 1 trong 3):
 
 Mỗi nhóm trả lời 2 câu:
 
-1. Case nào nên dùng multi-agent? Vì sao?
-2. Case nào không nên dùng multi-agent? Vì sao?
+1. **Case nào nên dùng multi-agent? Vì sao?**
+   - **Khi bài toán có tính phân rã cao (high task decomposability)**: Cần nhiều bước xử lý với kỹ năng/tools hoàn toàn khác biệt (truy xuất dữ liệu quy mô lớn, phân tích chuyên môn, viết và phản biện độc lập).
+   - **Khi cần cơ chế kiểm soát chất lượng & phản biện đối kháng**: Tách biệt giữa Generator (người sinh nội dung) và Verifier/Critic (người kiểm chứng fact) để giảm thiểu ảo giác (hallucination).
+   - **Khi có thể khai thác tính song song (parallel evidence gathering)**: Nhiều worker có thể thu thập thông tin từ các miền dữ liệu khác nhau cùng lúc trước khi tổng hợp.
+
+2. **Case nào không nên dùng multi-agent? Vì sao?**
+   - **Khi bài toán đơn giản, tuần tự ngắn hoặc mang tính chất tóm tắt thông thường**: Đưa multi-agent vào sẽ gây lãng phí lớn về chi phí token (token bloat) và làm tăng độ trễ (latency) mà không mang lại giá trị gia tăng rõ rệt về mặt chất lượng.
+   - **Khi hệ thống nhạy cảm với độ trễ (low latency budget)**: Chi phí điều phối (coordination overhead) và các bước handoff giữa các agent sẽ làm chậm thời gian phản hồi.
+   - **Khi chưa có cơ chế kiểm soát lỗi và state handoff chặt chẽ**: Việc chuyển giao ngữ cảnh (state handoff) giữa các agent không có validation sẽ dẫn đến sai lệch thông tin theo chuỗi (cascading errors/hallucinations).
